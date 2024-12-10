@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>List your meetings</title>
+    <link rel="stylesheet" type="text/css" href="/public/style.css">
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+
+<body>
+    <div class="l-form">
+        <div class="shape1"></div>
+        <div class="shape2"></div>
+
+        <div class="form__list">
+            <form class="form__content">
+                <h2 class="form__title">Meeting Manager</h2>
+            </form>
+        </div>
+
+        <form action="/meetings/create" method="post">
+        <table>
+            <thead>
+                <tr>
+                    <th>Meeting ID</th>
+                    <th>Meeting Name</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <% if (meetings && meetings.length) { %>
+                    <% meetings.forEach(function(meeting) { %>
+                        <tr>
+                            <td>
+                                <%= meeting.id %>
+                            </td>
+                            <td>
+                                <%= meeting.name %>
+                            </td>
+                            <td>
+                                <%= meeting.description %>
+                            </td>
+                            <td> <a href="https://glory-buttercup-wolverine.glitch.me/#<%= meeting.id %>"
+                                    target="_blank" class="form__action-link">Join</a> |
+                                <a onclick="copyMeetingLink('<%= meeting.id %>')" class="form__action-link">Link</a>
+                                |
+                                <form action="/meetings/delete/<%= meeting.id %>" method="post" style="display:inline;">
+                                    <a onclick=" " class="form__action-link">Delete</a>
+                                </form>
+                            </td>
+                        </tr>
+                        <% }) %>
+
+                            <% } else { %>
+                                <p>No meetings created yet.</p>
+                                <% } %>
+            </tbody>
+        </table>
+    </form>
+    
+        <div class="form__list">
+            <input type="submit" class="form__button" value="Return Room Meeting" action="/meetings">
+        </div>
+
+    </div>
+    <script src="/public/main.js"></script>
+    <script>
+        function copyMeetingLink(id) {
+            const url = 'https://glory-buttercup-wolverine.glitch.me/#' + id;
+            navigator.clipboard.writeText(url).then(
+                () => alert('Meeting link copied to clipboard!'),
+                () => alert('Failed to copy to clipboard.')
+            );
+        }
+    </script>
+
+
+</body>
+
+</html>

@@ -2,17 +2,48 @@
 <html>
 <head>
     <title>Your Meetings</title>
-    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link rel="stylesheet" type="text/css" href="/public/style.css">
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body>
-    <div class="container">
-        <h2>Your Meetings <form action="/logout" method="post"><button type="submit">Log out</button></form></h2>
-        <form action="/meetings/create" method="post">
-            <input type="text" name="name" placeholder="Meeting Name" required><br>
-            <input type="text" name="description" placeholder="Description"><br>
-            <button type="submit">Create Meeting</button>
-        </form>
+    <div class="l-form">
+        <div class="shape1"></div>
+        <div class="shape2"></div>
+        <div class="form">
+        
+        <form action="/meetings/create" method="post" class="form__content">
+            <h2 class="form__title">Meeting Room</h2>
+            <div class="form__div form__div-one">
+                <div class="form__icon">
+                    <i class='bx bx-video-plus'></i>
+                </div>
+
+                <div class="form__div-input">
+                    <label for="" class="form__label">Meeting Name</label>
+                    <input type="text" class="form__input" required><br>
+                </div>
+            </div>
+
+            <div class="form__div form__div-one">
+                <div class="form__icon">
+                    <i class='bx bx-message-square-detail'></i>
+                </div>
+
+                <div class="form__div-input">
+                    <label for="" class="form__label">Description</label>
+                    <input type="text" class="form__input" required><br>
+                </div>
+            </div>
+
+            <input type="submit" class="form__button" value="Create Meeting">
+
+            <div class="form__action">
+                <span class="form__action-text">Log out of your account?</span>
+                <a href="/logout" class="form__action-link">Log out</a>
+            </div>
+          </form>
+        </div>
         <% if (meetings && meetings.length) { %>
             <ul>
             <% meetings.forEach(function(meeting) { %>
@@ -29,7 +60,8 @@
         <% } else { %>
             <p>No meetings created yet.</p>
         <% } %>
-    </div>
+</div>
+    <script src="/public/main.js"></script>
     <script>
         function copyMeetingLink(id) {
             const url = 'https://glory-buttercup-wolverine.glitch.me/#' + id;
