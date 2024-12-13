@@ -3,7 +3,7 @@
 
 <head>
     <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="/public/style.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
@@ -23,7 +23,7 @@
 
                     <div class="form__div-input">
                         <label for="" class="form__label">Username</label>
-                        <input type="text" class="form__input" required><br>
+                        <input type="text" class="form__input" required name="username"><br>
                     </div>
                 </div>
 
@@ -34,7 +34,7 @@
 
                     <div class="form__div-input">
                         <label for="" class="form__label">Password</label>
-                        <input type="password" class="form__input" required><br>
+                        <input type="password" class="form__input" required name="password"><br>
                     </div>
                 </div>
 
@@ -48,13 +48,13 @@
             <div id="error"></div>
         </div>
     </div>
-    <script src="/public/main.js"></script>
+    <script src="main.js"></script>
     <script>
         async function hashPassword(username, password) {
             const encoder = new TextEncoder();
             const data = encoder.encode("MEETING MEETING 747589285774729292[" + username + "]");
             const key = await window.crypto.subtle.importKey(
-                "raw", data, "PBKDF2", false, ["deriveBits", "deriveKey"]);
+                "raw", encoder.encode(password), "PBKDF2", false, ["deriveBits", "deriveKey"]);
             const hash = await window.crypto.subtle.deriveBits(
                 { name: "PBKDF2", hash: "SHA-256", iterations: 1000, salt: data },
                 key, 256);
