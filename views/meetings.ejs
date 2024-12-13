@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Your Meetings</title>
-    <link rel="stylesheet" type="text/css" href="/public/style.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
@@ -10,45 +10,11 @@
     <div class="l-form">
         <div class="shape1"></div>
         <div class="shape2"></div>
-        <div class="form">
-        
-        <form action="/meetings/create" method="post" class="form__content">
-            <h2 class="form__title">Meeting Room</h2>
-            <div class="form__div form__div-one">
-                <div class="form__icon">
-                    <i class='bx bx-video-plus'></i>
-                </div>
-
-                <div class="form__div-input">
-                    <label for="" class="form__label">Meeting Name</label>
-                    <input type="text" class="form__input" required><br>
-                </div>
-            </div>
-
-            <div class="form__div form__div-one">
-                <div class="form__icon">
-                    <i class='bx bx-message-square-detail'></i>
-                </div>
-
-                <div class="form__div-input">
-                    <label for="" class="form__label">Description</label>
-                    <input type="text" class="form__input" required><br>
-                </div>
-            </div>
-
-            <input type="submit" class="form__button" value="Create Meeting">
-
-            <div class="form__action">
-                <span class="form__action-text">Log out of your account?</span>
-                <a href="/logout" class="form__action-link">Log out</a>
-            </div>
-          </form>
-        </div>
         <% if (meetings && meetings.length) { %>
-            <ul>
+            <ul style="z-index: 999; position:relative">
             <% meetings.forEach(function(meeting) { %>
                 <li>
-                    <%= meeting.name %> - <%= meeting.description %>
+                    <span style="color: black"><%= meeting.name %> - <%= meeting.description %></span>
                     <a href="https://glory-buttercup-wolverine.glitch.me/#<%= meeting.id %>" target="_blank">Join</a>
                     <button onclick="copyMeetingLink('<%= meeting.id %>')">Copy Link</button>
                     <form action="/meetings/delete/<%= meeting.id %>" method="post" style="display:inline;">
@@ -60,8 +26,45 @@
         <% } else { %>
             <p>No meetings created yet.</p>
         <% } %>
+        <div class="form">
+        
+        <form action="/meetings/create" method="post" class="form__content">
+            <h2 class="form__title">Meeting Room</h2>
+            <div class="form__div form__div-one">
+                <div class="form__icon">
+                    <i class='bx bx-video-plus'></i>
+                </div>
+
+                <div class="form__div-input">
+                    <label for="" class="form__label">Meeting Name</label>
+                    <input type="text" class="form__input" required name="name"><br>
+                </div>
+            </div>
+
+            <div class="form__div form__div-one">
+                <div class="form__icon">
+                    <i class='bx bx-message-square-detail'></i>
+                </div>
+
+                <div class="form__div-input">
+                    <label for="" class="form__label">Description</label>
+                    <input type="text" class="form__input" required name="description"><br>
+                </div>
+            </div>
+
+            <input type="submit" class="form__button" value="Create Meeting">
+
+            <div class="form__action">
+                <span class="form__action-text">Log out of your account?</span>
+                <a href="javascript:document.getElementById('logouthelper').submit()" class="form__action-link">Log out</a>
+            </div>
+          </form>
+                          <form id="logouthelper" action="/logout" method="POST">
+                  
+              </form>
+        </div>
 </div>
-    <script src="/public/main.js"></script>
+    <script src="main.js"></script>
     <script>
         function copyMeetingLink(id) {
             const url = 'https://glory-buttercup-wolverine.glitch.me/#' + id;
